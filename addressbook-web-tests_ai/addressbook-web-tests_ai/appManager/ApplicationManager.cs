@@ -23,6 +23,9 @@ namespace WebAddressbookTests
 
         public ApplicationManager() // Конструктор инициализации помошников
         {
+            driver = new FirefoxDriver();
+            baseURL = "http://localhost";
+
             loginHelper = new LoginHelper(driver);
             navigationHelper = new NavigationHelper(driver, baseURL);
             groupHelper = new GroupHelper(driver);
