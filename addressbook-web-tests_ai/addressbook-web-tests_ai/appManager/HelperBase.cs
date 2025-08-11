@@ -16,10 +16,5 @@ namespace WebAddressbookTests
         {
             this.driver = driver;
         }
-
-        /*public HelperBase(IWebDriver driver, string baseURL)
-        {
-            this.driver = driver;
-        }*/
     }
 }

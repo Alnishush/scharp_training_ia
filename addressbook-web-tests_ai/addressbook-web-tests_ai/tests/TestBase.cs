@@ -17,11 +17,14 @@ namespace WebAddressbookTests
         public void SetupTest() // Метод инициализации
         {
             app = new ApplicationManager();
+            app.Navigator.OpenHomePage();
+            app.Logins.Login(new AccountData("admin", "secret"));
         }
 
         [TearDown]
         public void TeardownTest() // Метод останавливает драйвер в концу
         {
+            app.Logins.Logout();
             app.Stop();
         }
     }

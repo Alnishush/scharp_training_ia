@@ -12,13 +12,10 @@ namespace WebAddressbookTests
         [Test]
         public void AddAddressTest()
         {
-            app.Navigator.OpenHomePage();
-            app.Logins.Login(new AccountData("admin", "secret"));
             app.Navigator.GoToAddNewPage();
             app.Contacts.FillAddressForm(new AddressData("Игорь", "Тарантинович"));
             app.Contacts.SubmitAddressCreation();
             app.Navigator.GoToHomePage();
-            app.Logins.Logout();
         }
     }
 }
