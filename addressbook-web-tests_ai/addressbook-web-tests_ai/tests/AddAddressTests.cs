@@ -1,0 +1,24 @@
+﻿using System;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using NUnit.Framework;
+
+namespace WebAddressbookTests
+{
+    [TestFixture]
+    public class AddAddressTests : TestBase
+    {
+        [Test]
+        public void AddAddressTest()
+        {
+            app.Navigator.OpenHomePage();
+            app.Logins.Login(new AccountData("admin", "secret"));
+            app.Navigator.GoToAddNewPage();
+            app.Contacts.FillAddressForm(new AddressData("Игорь", "Тарантинович"));
+            app.Contacts.SubmitAddressCreation();
+            app.Navigator.GoToHomePage();
+            app.Logins.Logout();
+        }
+    }
+}
