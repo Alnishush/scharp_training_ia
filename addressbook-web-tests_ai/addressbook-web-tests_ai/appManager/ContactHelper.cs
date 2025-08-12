@@ -28,5 +28,16 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("submit")).Click();
         }
+
+        public void UpdateContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+        }
+
+        public void EditContact(int line)
+        {
+            line++; //+1 строка, т.к. 1 строка это шапка таблицы
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ "+ line + " ]/td[8]/a/img")).Click();
+        }
     }
 }

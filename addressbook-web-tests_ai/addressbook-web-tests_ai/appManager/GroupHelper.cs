@@ -42,7 +42,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        public void UpdateGroupModificationn()
+        public void SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
         }
