@@ -19,6 +19,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("new")).Click();
         }
 
+        public void InitEditGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+        }
+
         public void FillGroupForm(GroupData group)
         {
             driver.FindElement(By.Name("group_name")).Click();
@@ -35,6 +40,11 @@ namespace WebAddressbookTests
         public void SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+        }
+
+        public void UpdateGroupModificationn()
+        {
+            driver.FindElement(By.Name("update")).Click();
         }
 
         public void ReternToGroupsPage()
