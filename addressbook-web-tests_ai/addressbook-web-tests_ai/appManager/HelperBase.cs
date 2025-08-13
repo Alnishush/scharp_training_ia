@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
         protected IWebDriver driver; // Ссылка на драйвер
         protected string baseURL = "";
+        protected bool acceptNextAlert;
 
         public HelperBase(IWebDriver driver)
         {

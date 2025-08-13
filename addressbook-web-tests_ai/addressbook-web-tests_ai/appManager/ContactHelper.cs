@@ -39,5 +39,16 @@ namespace WebAddressbookTests
             line++; //+1 строка, т.к. 1 строка это шапка таблицы
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ "+ line + " ]/td[8]/a/img")).Click();
         }
+
+        public void SelectContact(int line)
+        {
+            line++; //+1 строка, т.к. 1 строка это шапка таблицы
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ "+ line + " ]/td/input")).Click();
+        }
+
+        internal void RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+        }
     }
 }

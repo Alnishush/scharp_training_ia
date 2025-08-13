@@ -17,7 +17,7 @@ namespace WebAddressbookTests
             app.Groups.SelectGroup(1);
             app.Groups.InitEditGroupModification();
             app.Groups.FillGroupForm(new GroupData("z", "zx", "zxc"));
-            app.Groups.SubmitGroupModification();
+            app.Groups.UpdateGroupModificationn();
             app.Groups.ReternToGroupsPage();
         }
     }
