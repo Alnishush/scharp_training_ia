@@ -12,10 +12,26 @@ namespace WebAddressbookTests
         protected IWebDriver driver; // Ссылка на драйвер
         protected string baseURL = "";
         protected bool acceptNextAlert;
+        protected ApplicationManager manager;
 
-        public HelperBase(IWebDriver driver)
+        public HelperBase(ApplicationManager manager)
         {
-            this.driver = driver;
+            this.manager = manager;
+            driver = manager.Driver;
+        }
+
+        // Для поиска элементов
+        public bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
     }
 }

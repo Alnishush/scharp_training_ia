@@ -11,8 +11,8 @@ namespace WebAddressbookTests
 {
     public class LoginHelper : HelperBase
     {
-        public LoginHelper(IWebDriver driver)
-            : base(driver) { } // Наследуем драйвер из HelperBase
+        public LoginHelper(ApplicationManager manager)
+            : base(manager) { } // Наследуем драйвер из HelperBase
 
         public void Login(AccountData account)
         {

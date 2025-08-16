@@ -14,18 +14,18 @@ namespace WebAddressbookTests
         protected ApplicationManager app;
 
         [SetUp]
-        public void SetupTest() // Метод инициализации
+        public void SetupTest()
         {
-            app = new ApplicationManager();
+            app = new ApplicationManager(); // Инициализация
             app.Navigator.OpenHomePage();
             app.Logins.Login(new AccountData("admin", "secret"));
         }
 
         [TearDown]
-        public void TeardownTest() // Метод останавливает драйвер в концу
+        public void TeardownTest()
         {
             app.Logins.Logout();
-            app.Stop();
+            app.Stop(); // Останавливает драйвер
         }
     }
 }

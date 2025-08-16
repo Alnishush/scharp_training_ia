@@ -13,8 +13,9 @@ namespace WebAddressbookTests
         public void AddAddressTest()
         {
             app.Navigator.GoToAddNewPage();
-            app.Contacts.FillAddressForm(new AddressData("Игорь", "Тарантинович"));
-            app.Contacts.SubmitAddressCreation();
+            app.Contacts
+                .FillAddressForm(new AddressData("Игорь", "Тарантинович"))
+                .SubmitAddressCreation();
             app.Navigator.GoToHomePage();
         }
     }

@@ -14,11 +14,12 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             app.Navigator.GoToGroupsPage();
-            app.Groups.SelectGroup(1);
-            app.Groups.InitEditGroupModification();
-            app.Groups.FillGroupForm(new GroupData("z", "zx", "zxc"));
-            app.Groups.UpdateGroupModificationn();
-            app.Groups.ReternToGroupsPage();
+            app.Groups
+                .SelectGroup(1)
+                .InitEditGroupModification()
+                .FillGroupForm(new GroupData("z", "zx", "zxc"))
+                .UpdateGroupModificationn()
+                .ReternToGroupsPage();
         }
     }
 }

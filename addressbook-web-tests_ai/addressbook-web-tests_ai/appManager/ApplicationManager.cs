@@ -26,10 +26,16 @@ namespace WebAddressbookTests
             driver = new FirefoxDriver();
             baseURL = "http://localhost";
 
-            loginHelper = new LoginHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-            contactHelper = new ContactHelper(driver);
+            // this - ссылка на ApplicationManager
+            loginHelper = new LoginHelper(this);
+            navigationHelper = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
+        }
+
+        public IWebDriver Driver
+        {
+            get { return driver; }
         }
 
         public void Stop()

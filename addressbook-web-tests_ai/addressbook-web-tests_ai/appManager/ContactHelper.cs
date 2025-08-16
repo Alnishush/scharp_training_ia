@@ -11,10 +11,10 @@ namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
-        public ContactHelper(IWebDriver driver)
-            : base(driver) { }
+        public ContactHelper(ApplicationManager manager)
+            : base(manager) { }
 
-        public void FillAddressForm(AddressData address)
+        public ContactHelper FillAddressForm(AddressData address)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -22,33 +22,51 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).Click();
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(address.Lastname);
+            return this;
         }
 
-        public void SubmitAddressCreation()
+        public ContactHelper SubmitAddressCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
-        public void UpdateContactModification()
+        public ContactHelper UpdateContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            return this;
         }
 
-        public void EditContact(int line)
+        public ContactHelper EditContact(int line)
+        {
+            if (HaveContact())
+            {
+                line++; //+1 строка, т.к. 1 строка это шапка таблицы
+                driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td[8]/a/img")).Click();
+            }
+            /*else
+            {
+                manager.Navigator.GoToAddNewPage();
+            }*/
+            return this;
+        }
+
+        public bool HaveContact()
+        {
+            return IsElementPresent(By.Name("entry"));
+        }
+
+        public ContactHelper SelectContact(int line)
         {
             line++; //+1 строка, т.к. 1 строка это шапка таблицы
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ "+ line + " ]/td[8]/a/img")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td/input")).Click();
+            return this;
         }
 
-        public void SelectContact(int line)
-        {
-            line++; //+1 строка, т.к. 1 строка это шапка таблицы
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ "+ line + " ]/td/input")).Click();
-        }
-
-        internal void RemoveContact()
+        internal ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
         }
     }
 }

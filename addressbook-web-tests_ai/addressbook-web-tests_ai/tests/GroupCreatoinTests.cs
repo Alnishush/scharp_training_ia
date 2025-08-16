@@ -13,10 +13,12 @@ namespace WebAddressbookTests
         public void GroupCreationTest()
         {
             app.Navigator.GoToGroupsPage();
-            app.Groups.InitNewGroupCreation();
-            app.Groups.FillGroupForm(new GroupData("q", "qw", "qwe"));
-            app.Groups.SubmitGroupCreation();
-            app.Groups.ReternToGroupsPage();
+            app.Groups // Так можно сделать из-за вызова самого себя GroupHelper
+                .InitNewGroupCreation()
+                .FillGroupForm(new GroupData("q", "qw", "qwe"))
+                .SubmitGroupCreation()
+                .ReternToGroupsPage();
+            //app.Groups.CreateGroup(group); // Для public GroupHelper CreateGroup(GroupData group) из GroupHelper
         }
     }
 }

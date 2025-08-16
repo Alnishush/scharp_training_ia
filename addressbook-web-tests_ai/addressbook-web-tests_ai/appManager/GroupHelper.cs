@@ -11,20 +11,33 @@ namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
-        public GroupHelper(IWebDriver driver)
-            : base(driver) { }
+        public GroupHelper(ApplicationManager manager)
+            : base(manager) // Ссылка на менеджер
+        {
+        }
 
-        public void InitNewGroupCreation()
+        /*public GroupHelper CreateGroup(GroupData group) // Для app.Groups.CreateGroup(group) из GroupCreationTests
+        {
+            InitNewGroupCreation();
+            FillGroupForm(new GroupData("q", "qw", "qwe"));
+            SubmitGroupCreation();
+            ReternToGroupsPage();
+            return this;
+        }*/
+
+        public GroupHelper InitNewGroupCreation() // вместо void ставим GroupHelper и добавляем return this; что бы вызывать самого себя. Для уменьшения теста GroupCreationTests
         {
             driver.FindElement(By.Name("new")).Click();
+            return this;
         }
 
-        public void InitEditGroupModification()
+        public GroupHelper InitEditGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
+            return this;
         }
 
-        public void FillGroupForm(GroupData group)
+        public GroupHelper FillGroupForm(GroupData group)
         {
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
@@ -35,31 +48,37 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("group_footer")).Click();
             driver.FindElement(By.Name("group_footer")).Clear();
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            return this;
         }
 
-        public void SubmitGroupCreation()
+        public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
-        public void UpdateGroupModificationn()
+        public GroupHelper UpdateGroupModificationn()
         {
             driver.FindElement(By.Name("update")).Click();
+            return this;
         }
 
-        public void ReternToGroupsPage()
+        public GroupHelper ReternToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
+            return this;
         }
 
-        public void SelectGroup(int index)
+        public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + " ]/input")).Click();
+            return this;
         }
 
-        public void RemoveGroup()
+        public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            return this;
         }
     }
 }
