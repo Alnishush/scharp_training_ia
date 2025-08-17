@@ -16,17 +16,20 @@ namespace WebAddressbookTests
         [SetUp]
         public void SetupTest()
         {
-            app = new ApplicationManager(); // Инициализация
-            app.Navigator.OpenHomePage();
+            app = ApplicationManager.GetInstance();
             app.Logins.Login(new AccountData("admin", "secret"));
+            /*app = new ApplicationManager(); // Инициализация
+
+            app.Navigator.OpenHomePage();
+            app.Logins.Login(new AccountData("admin", "secret"));*/
         }
 
-        [TearDown]
+        /*[TearDown]
         public void TeardownTest()
         {
             app.Logins.Logout();
             app.Stop(); // Останавливает драйвер
-        }
+        }*/
     }
 }
 
