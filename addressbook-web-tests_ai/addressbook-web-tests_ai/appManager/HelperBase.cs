@@ -20,6 +20,17 @@ namespace WebAddressbookTests
             driver = manager.Driver;
         }
 
+        // Заполнение полей + проверка на null, если null, то поле не обрабатывается
+        public void Type(By locator, string text)
+        {
+            if (text != null)
+            {
+                driver.FindElement(locator).Click();
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
+        }
+
         // Для поиска элементов
         public bool IsElementPresent(By by)
         {

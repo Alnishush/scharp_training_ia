@@ -44,10 +44,14 @@ namespace WebAddressbookTests
                 line++; //+1 строка, т.к. 1 строка это шапка таблицы
                 driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td[8]/a/img")).Click();
             }
-            /*else
+            else
             {
                 manager.Navigator.GoToAddNewPage();
-            }*/
+                FillAddressForm(new AddressData("Игорь", "Тарантинович"));
+                SubmitAddressCreation();
+                manager.Navigator.GoToHomePage();
+                EditContact(1); //подумать!!!!
+            }
             return this;
         }
 
@@ -67,6 +71,11 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
+        }
+
+        internal void CheckContact()
+        {
+            throw new NotImplementedException();
         }
     }
 }
