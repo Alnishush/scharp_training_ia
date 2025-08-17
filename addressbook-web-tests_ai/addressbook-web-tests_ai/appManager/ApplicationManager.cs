@@ -40,7 +40,7 @@ namespace WebAddressbookTests
         {
             try
             {
-                ApplicationManager.GetInstance().Logins.Logout();
+                ApplicationManager.GetInstance().Auth.Logout();
                 driver.Quit();
             }
             catch (Exception)
@@ -65,7 +65,7 @@ namespace WebAddressbookTests
             get { return driver; }
         }
 
-        public LoginHelper Logins
+        public LoginHelper Auth
         {
             get { return loginHelper; }
         }

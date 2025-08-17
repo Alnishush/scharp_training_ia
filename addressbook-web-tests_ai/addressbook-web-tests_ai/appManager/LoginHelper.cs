@@ -31,7 +31,10 @@ namespace WebAddressbookTests
 
         public void Logout()
         {
+            if (IsLoggedIn())
+            {
             driver.FindElement(By.LinkText("Logout")).Click();
+            }
         }
 
         public bool IsLoggedIn()
