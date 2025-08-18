@@ -33,33 +33,47 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public bool AvailableContact()
+        {
+            return IsElementPresent(By.Name("entry"));
+        }
+
+        public ContactHelper CreateContact()
+        {
+            manager.Navigator.GoToAddNewPage();
+            FillAddressForm(new AddressData("Игорь", "Тарантинович"));
+            SubmitAddressCreation();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         public ContactHelper EditContact(int line)
         {
-            if (HaveContact())
+            if (AvailableContact())
             {
                 line++; //+1 строка, т.к. 1 строка это шапка таблицы
                 driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td[8]/a/img")).Click();
             }
             else
             {
-                manager.Navigator.GoToAddNewPage();
-                FillAddressForm(new AddressData("Игорь", "Тарантинович"));
-                SubmitAddressCreation();
-                manager.Navigator.GoToHomePage();
-                EditContact(1); //подумать!!!!
+                CreateContact();
+                EditContact(line);
             }
             return this;
         }
 
-        public bool HaveContact()
-        {
-            return IsElementPresent(By.Name("entry"));
-        }
-
         public ContactHelper SelectContact(int line)
         {
-            line++; //+1 строка, т.к. 1 строка это шапка таблицы
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td/input")).Click();
+            if (AvailableContact())
+            {
+                line++; //+1 строка, т.к. 1 строка это шапка таблицы
+                driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td/input")).Click();
+            }
+            else
+            {
+                CreateContact();
+                SelectContact(line);
+            }
             return this;
         }
 

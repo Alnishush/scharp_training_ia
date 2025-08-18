@@ -16,7 +16,7 @@ namespace WebAddressbookTests
         {
         }
 
-        /*public GroupHelper CreateGroup(GroupData group) // Для app.Groups.CreateGroup(group) из GroupCreationTests
+        /*public GroupHelper CreateGroup() // Для app.Groups.CreateGroup(group) из GroupCreationTests
         {
             InitNewGroupCreation();
             FillGroupForm(new GroupData("q", "qw", "qwe"));
@@ -65,8 +65,29 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + " ]/input")).Click();
+            if (AvailableGroup())
+            {
+                driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + " ]/input")).Click();
+            }
+            else
+            {
+                CreateGroup();
+                SelectGroup(index);
+            }
             return this;
+        }
+
+        public void CreateGroup()
+        {
+            InitNewGroupCreation();
+            FillGroupForm(new GroupData("q", "qw", "qwe"));
+            SubmitGroupCreation();
+            ReternToGroupsPage();
+        }
+
+        public bool AvailableGroup()
+        {
+            return IsElementPresent(By.ClassName("group"));
         }
 
         public GroupHelper RemoveGroup()
