@@ -14,6 +14,14 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             app.Navigator.GoToHomePage();
+
+            // Подготовка
+            if (!app.Contacts.IsContactPresent()) // Если контактов нет - создаем новый
+            {
+                app.Contacts.CreateContact();
+            }
+
+            // Действие
             app.Contacts
                 .EditContact(1)
                 .FillAddressForm(new AddressData("Петр", "Первый"))

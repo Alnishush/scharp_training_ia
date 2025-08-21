@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace WebAddressbookTests
 {
@@ -14,6 +15,14 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             app.Navigator.GoToGroupsPage();
+           
+            // Подготовка
+            if (!app.Groups.IsGroupPresent()) // Если групп нет - создаем новую
+            {
+                app.Groups.CreateGroup();
+            }
+
+            // Действие
             app.Groups
                 .SelectGroup(1)
                 .InitEditGroupModification()

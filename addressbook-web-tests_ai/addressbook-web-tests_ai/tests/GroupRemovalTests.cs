@@ -13,6 +13,15 @@ namespace WebAddressbookTests
         public void GroupRemovalTest()
         {
             app.Navigator.GoToGroupsPage();
+
+            // Подготовка
+            if (!app.Groups.IsGroupPresent()) // Если групп нет - создаем новую
+            {
+                app.Groups.CreateGroup();
+            }
+
+            // Действие
+            app.Navigator.GoToGroupsPage();
             app.Groups
                 .SelectGroup(1)
                 .RemoveGroup()

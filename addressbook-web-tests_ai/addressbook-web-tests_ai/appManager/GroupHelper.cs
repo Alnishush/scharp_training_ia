@@ -65,27 +65,20 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            if (AvailableGroup())
-            {
-                driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + " ]/input")).Click();
-            }
-            else
-            {
-                CreateGroup();
-                SelectGroup(index);
-            }
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + " ]/input")).Click();
             return this;
         }
 
-        public void CreateGroup()
+        public GroupHelper CreateGroup()
         {
             InitNewGroupCreation();
             FillGroupForm(new GroupData("q", "qw", "qwe"));
             SubmitGroupCreation();
             ReternToGroupsPage();
+            return this;
         }
 
-        public bool AvailableGroup()
+        public bool IsGroupPresent()
         {
             return IsElementPresent(By.ClassName("group"));
         }

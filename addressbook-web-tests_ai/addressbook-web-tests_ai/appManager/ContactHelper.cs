@@ -33,7 +33,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public bool AvailableContact()
+        public bool IsContactPresent()
         {
             return IsElementPresent(By.Name("entry"));
         }
@@ -49,43 +49,22 @@ namespace WebAddressbookTests
 
         public ContactHelper EditContact(int line)
         {
-            if (AvailableContact())
-            {
-                line++; //+1 строка, т.к. 1 строка это шапка таблицы
-                driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td[8]/a/img")).Click();
-            }
-            else
-            {
-                CreateContact();
-                EditContact(line);
-            }
+            line++; //+1 строка, т.к. 1 строка это шапка таблицы
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td[8]/a/img")).Click();
             return this;
         }
 
         public ContactHelper SelectContact(int line)
         {
-            if (AvailableContact())
-            {
-                line++; //+1 строка, т.к. 1 строка это шапка таблицы
-                driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td/input")).Click();
-            }
-            else
-            {
-                CreateContact();
-                SelectContact(line);
-            }
+            line++; //+1 строка, т.к. 1 строка это шапка таблицы
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + line + " ]/td/input")).Click();
             return this;
         }
 
-        internal ContactHelper RemoveContact()
+        public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
-        }
-
-        internal void CheckContact()
-        {
-            throw new NotImplementedException();
         }
     }
 }
