@@ -1,10 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using NUnit.Framework;
-using System.Collections.Generic;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+﻿using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
@@ -14,21 +8,55 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            // Подготовка
+            GroupData group = new GroupData("q");
+            group.Header = "qw";
+            group.Footer = "qwe";
+
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //получаем список групп до
+            
+            app.Groups.Create(group); // Для public GroupHelper CreateGroup(GroupData group) из GroupHelper
 
-            // Действие
-            app.Navigator.GoToGroupsPage();
-            app.Groups // Так можно сделать из-за вызова самого себя GroupHelper
-                .InitNewGroupCreation()
-                .FillGroupForm(new GroupData("q", "qw", "qwe"))
-                .SubmitGroupCreation()
-                .ReternToGroupsPage();
-            //app.Groups.CreateGroup(group); // Для public GroupHelper CreateGroup(GroupData group) из GroupHelper
-
-            // Проверка
             List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
-            Assert.AreEqual(oldGroups.Count + 1/*ожидаем*/, newGroups.Count/*получаем*/); //Проверяем, что список групп увелисился на 1
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            CollectionAssert.AreEqual(oldGroups, newGroups); //Проверяем, что список групп увелисился на 1
+        }
+
+        [Test]
+        public void EmptyGroupCreationTest()
+        {
+            GroupData group = new GroupData("");
+            group.Header = "";
+            group.Footer = "";
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Create(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            CollectionAssert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void BadGroupCreationTest()
+        {
+            GroupData group = new GroupData("a'a");
+            group.Header = "";
+            group.Footer = "";
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Create(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            CollectionAssert.AreEqual(oldGroups, newGroups);
         }
     }
 }

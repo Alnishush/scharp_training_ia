@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
@@ -16,24 +9,39 @@ namespace WebAddressbookTests
         {
         }
 
-        /*public GroupHelper CreateGroup() // Для app.Groups.CreateGroup(group) из GroupCreationTests
+        public GroupHelper Create(GroupData group) // Для app.Groups.CreateGroup(group) из GroupCreationTests
         {
+            manager.Navigator.GoToGroupsPage();
             InitNewGroupCreation();
-            FillGroupForm(new GroupData("q", "qw", "qwe"));
+            FillGroupForm(group);
             SubmitGroupCreation();
             ReternToGroupsPage();
             return this;
-        }*/
+        }
+
+        public GroupHelper Remove(int index)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(index);
+            RemoveGroup();
+            ReternToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Modify(int index, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(index);
+            InitEditGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModificationn();
+            ReternToGroupsPage();
+            return this;
+        }
 
         public GroupHelper InitNewGroupCreation() // вместо void ставим GroupHelper и добавляем return this; что бы вызывать самого себя. Для уменьшения теста GroupCreationTests
         {
             driver.FindElement(By.Name("new")).Click();
-            return this;
-        }
-
-        public GroupHelper InitEditGroupModification()
-        {
-            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
 
@@ -51,9 +59,15 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper UpdateGroupModificationn()
+        public GroupHelper SubmitGroupModificationn()
         {
             driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public GroupHelper InitEditGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
 
@@ -80,6 +94,7 @@ namespace WebAddressbookTests
 
         public bool IsGroupPresent()
         {
+            manager.Navigator.GoToGroupsPage();
             return IsElementPresent(By.ClassName("group"));
         }
 
