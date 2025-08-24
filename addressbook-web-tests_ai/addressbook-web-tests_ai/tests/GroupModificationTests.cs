@@ -23,7 +23,7 @@ namespace WebAddressbookTests
 
             // Действие
             app.Groups
-                .SelectGroup(1)
+                .SelectGroup(0)
                 .InitEditGroupModification()
                 .FillGroupForm(new GroupData("z", "zx", "zxc"))
                 .UpdateGroupModificationn()

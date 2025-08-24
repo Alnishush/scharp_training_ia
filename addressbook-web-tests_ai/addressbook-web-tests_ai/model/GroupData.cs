@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class GroupData
+    public class GroupData : IEquatable<GroupData> //Для сравнения
     {
         private string name;
         private string header = "";
@@ -15,6 +15,19 @@ namespace WebAddressbookTests
         public GroupData(string name)
         {
             this.name = name;
+        }
+
+        public bool Equals(GroupData other) //Реализует сравнения
+        {
+            if (Object.ReferenceEquals(other, null)) //Если тот объект с которым сравниваем это null
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other)) //Если объект один и тот же
+            {
+                return true;
+            }
+            return Name == other.Name;
         }
 
         public GroupData(string name, string header, string footer)

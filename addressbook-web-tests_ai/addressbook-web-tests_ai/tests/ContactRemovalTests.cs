@@ -22,7 +22,7 @@ namespace WebAddressbookTests
 
             // Действие
             app.Contacts
-                .SelectContact(1)
+                .SelectContact(0)
                 .RemoveContact();
             app.Navigator.GoToHomePage();
         }

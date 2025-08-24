@@ -23,8 +23,8 @@ namespace WebAddressbookTests
 
             // Действие
             app.Contacts
-                .EditContact(1)
-                .FillAddressForm(new AddressData("Петр", "Первый"))
+                .EditContact(0)
+                .FillAddressForm(new AddressData("Петр1", "Первый"))
                 .UpdateContactModification();
             app.Navigator.GoToHomePage();
         }
