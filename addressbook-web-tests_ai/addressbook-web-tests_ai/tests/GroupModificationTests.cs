@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -10,7 +11,8 @@ namespace WebAddressbookTests
         {
             if (!app.Groups.IsGroupPresent()) // Если групп нет - создаем новую
             {
-                app.Groups.CreateGroup();
+                GroupData group = new GroupData("Test Group");
+                app.Groups.Create(group);
             }
 
             GroupData newData = new GroupData("z");

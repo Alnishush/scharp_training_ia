@@ -1,15 +1,12 @@
-﻿namespace WebAddressbookTests
+﻿using System;
+
+namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Для сравнения
     {
         private string name;
         private string header = "";
         private string footer = "";
-
-        public GroupData(string name)
-        {
-            this.name = name;
-        }
 
         public bool Equals(GroupData other) //Реализует сравнения
         {
@@ -35,12 +32,17 @@
         }
 
         public int CompareTo(GroupData other)
-        {
+        {   
             if (Object.ReferenceEquals (other, null))
             {
                 return 1;
             }
             return Name.CompareTo(other.Name);
+        }
+
+        public GroupData(string name)
+        {
+            this.name = name;
         }
 
         public GroupData(string name, string header, string footer)
