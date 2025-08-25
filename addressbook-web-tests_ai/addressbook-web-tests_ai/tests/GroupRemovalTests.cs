@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 
 namespace WebAddressbookTests
@@ -22,7 +23,7 @@ namespace WebAddressbookTests
             List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
 
             oldGroups.RemoveAt(0); //Удаленный элемент из списка до
-            CollectionAssert.AreEqual(oldGroups, newGroups); //Сравнение списков*/
+            ClassicAssert.AreEqual(oldGroups, newGroups); //Сравнение списков*/
         }
     }
 }

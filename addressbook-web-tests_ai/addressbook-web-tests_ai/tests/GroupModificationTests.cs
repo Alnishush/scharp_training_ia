@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 
 namespace WebAddressbookTests
@@ -27,7 +28,7 @@ namespace WebAddressbookTests
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
-            CollectionAssert.AreEqual(oldGroups, newGroups); //Проверяем, что список групп увелисился на 1
+            ClassicAssert.AreEqual(oldGroups, newGroups); //Проверяем, что список групп увелисился на 1
         }
     }
 }
