@@ -28,7 +28,7 @@ namespace WebAddressbookTests
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
-            ClassicAssert.AreEqual(oldGroups, newGroups); //Проверяем, что список групп увелисился на 1
+            ClassicAssert.AreEqual(oldGroups, newGroups);
         }
     }
 }

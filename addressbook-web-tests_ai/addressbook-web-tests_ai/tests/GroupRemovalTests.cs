@@ -21,9 +21,10 @@ namespace WebAddressbookTests
             app.Groups.Remove(0);
 
             List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
-
             oldGroups.RemoveAt(0); //Удаленный элемент из списка до
-            ClassicAssert.AreEqual(oldGroups, newGroups); //Сравнение списков*/
+            oldGroups.Sort();
+            newGroups.Sort();
+            ClassicAssert.AreEqual(oldGroups, newGroups);
         }
     }
 }

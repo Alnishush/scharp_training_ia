@@ -19,7 +19,7 @@ namespace WebAddressbookTests
             // Действие
             app.Contacts
                 .EditContact(0)
-                .FillAddressForm(new AddressData("Петр1", "Первый"))
+                .FillAddressForm(new ContactData("Петр1", "Первый"))
                 .UpdateContactModification();
             app.Navigator.GoToHomePage();
         }

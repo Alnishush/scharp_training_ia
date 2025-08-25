@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.BiDi.BrowsingContext;
 
 namespace WebAddressbookTests
 {
@@ -7,7 +8,17 @@ namespace WebAddressbookTests
         public ContactHelper(ApplicationManager manager)
             : base(manager) { }
 
-        public ContactHelper FillAddressForm(AddressData address)
+        public ContactHelper Create(ContactData contact) // Для app.Groups.CreateGroup(group) из GroupCreationTests
+        {
+            manager.Navigator.GoToAddNewPage();
+            FillAddressForm(contact);
+            SubmitAddressCreation();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+
+        public ContactHelper FillAddressForm(ContactData address)
         {
             Type(By.Name("firstname"), address.Firstname);
             Type(By.Name("lastname"), address.Lastname);
@@ -34,7 +45,7 @@ namespace WebAddressbookTests
         public ContactHelper CreateContact()
         {
             manager.Navigator.GoToAddNewPage();
-            FillAddressForm(new AddressData("Игорь", "Тарантинович"));
+            FillAddressForm(new ContactData("Игорь", "Тарантинович"));
             SubmitAddressCreation();
             manager.Navigator.GoToHomePage();
             return this;
@@ -56,6 +67,18 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
+        }
+
+        public List<ContactData> GetGroupList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr.entry"));
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+            return contacts;
         }
     }
 }
