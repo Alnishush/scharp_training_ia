@@ -10,13 +10,14 @@ namespace WebAddressbookTests
         [Test]
         public void AddAddressTest()
         {
-            ContactData contact = new ContactData("Игорь", "Тарантинович");
+            ContactData contact = new ContactData("Игорь");
+            contact.Lastname = "Тарантинович";
 
-            List<ContactData> oldContacts = app.Contacts.GetGroupList();
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
 
-            List<ContactData> newContacts = app.Contacts.GetGroupList();
+            List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();

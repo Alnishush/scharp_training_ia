@@ -17,6 +17,24 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(index);
+            RemoveContact();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Modify(int index, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            EditContact(index);
+            FillAddressForm(newData);
+            UpdateContactModification();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
 
         public ContactHelper FillAddressForm(ContactData address)
         {
@@ -42,24 +60,15 @@ namespace WebAddressbookTests
             return IsElementPresent(By.Name("entry"));
         }
 
-        public ContactHelper CreateContact()
+        public ContactHelper EditContact(int index)
         {
-            manager.Navigator.GoToAddNewPage();
-            FillAddressForm(new ContactData("Игорь", "Тарантинович"));
-            SubmitAddressCreation();
-            manager.Navigator.GoToHomePage();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + (index+2) + " ]/td[8]/a/img")).Click();
             return this;
         }
 
-        public ContactHelper EditContact(int line)
+        public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + (line+2) + " ]/td[8]/a/img")).Click();
-            return this;
-        }
-
-        public ContactHelper SelectContact(int line)
-        {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + (line+2) + " ]/td/input")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[ " + (index+2) + " ]/td/input")).Click();
             return this;
         }
 
@@ -69,14 +78,24 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public List<ContactData> GetGroupList()
+        public List<ContactData> GetContactList()
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr.entry"));
+            
+            // Находим все строки контактов
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
+            
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text));
+                // Находим все колонки в строке
+                IList<IWebElement> column = element.FindElements(By.TagName("td"));
+
+                // Извлекаем фамилию (2я колонка) и имя (3я колонка)
+                string lastname = column[1].Text;
+                string firstname = column[2].Text;
+
+                contacts.Add(new ContactData(firstname, lastname));
             }
             return contacts;
         }

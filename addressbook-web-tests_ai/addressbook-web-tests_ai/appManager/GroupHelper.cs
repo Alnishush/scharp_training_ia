@@ -83,15 +83,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper CreateGroup()
-        {
-            InitNewGroupCreation();
-            FillGroupForm(new GroupData("q", "qw", "qwe"));
-            SubmitGroupCreation();
-            ReternToGroupsPage();
-            return this;
-        }
-
         public bool IsGroupPresent()
         {
             manager.Navigator.GoToGroupsPage();
@@ -108,12 +99,14 @@ namespace WebAddressbookTests
         {
             List<GroupData> groups = new List<GroupData>(); //создаем пустой список
             manager.Navigator.GoToGroupsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //находим елементы на странице и сохраняем в коллекцию elements
+
+            // Находим все строки групп
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
             foreach (IWebElement element in elements)
             {
-                groups.Add(new GroupData(element.Text)); //получаем текст из веб-элемента (название группы) и устанавливаем его как имя группы
+                groups.Add(new GroupData(element.Text));
             }
-            return groups; //возвращаем список
+            return groups;
         }
     }
 }

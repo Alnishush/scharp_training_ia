@@ -41,6 +41,11 @@ namespace WebAddressbookTests
             return Firstname.CompareTo(other.Firstname) & Lastname.CompareTo(other.Lastname);
         }
 
+        public ContactData(string firstname)
+        {
+            this.firstname = firstname;
+        }
+
         public ContactData(string firstname, string lastname)
         {
             this.firstname = firstname;
