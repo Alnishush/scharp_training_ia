@@ -21,6 +21,7 @@ namespace WebAddressbookTests
             newData.Footer = "zxc";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //получаем список групп до
+            GroupData oldData = oldGroups[0]; // Сохраняем строку по id
 
             app.Groups.Modify(0, newData);
 
@@ -31,6 +32,14 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             ClassicAssert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                ClassicAssert.AreEqual(newData.Name, group.Name); // Изменилась именно этот строка по id
+                }
+            }
         }
     }
 }

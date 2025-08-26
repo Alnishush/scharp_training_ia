@@ -5,9 +5,6 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
-
         public bool Equals(ContactData other) //Реализует сравнения
         {
             if (Object.ReferenceEquals(other, null)) //Если тот объект с которым сравниваем это null
@@ -43,25 +40,16 @@ namespace WebAddressbookTests
 
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
         }
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
-        public string Firstname
-        {
-            get { return firstname; }
-            set { firstname = value; }
-        }
-
-        public string Lastname
-        {
-            get { return lastname; }
-            set { lastname = value; }
-        }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
     }
 }
