@@ -31,7 +31,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             EditContact(index);
             FillAddressForm(newData);
-            UpdateContactModification();
+            SubmitContactModification();
             manager.Navigator.GoToHomePage();
             return this;
         }
@@ -46,12 +46,14 @@ namespace WebAddressbookTests
         public ContactHelper SubmitAddressCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null; // Чистим кеш
             return this;
         }
 
-        public ContactHelper UpdateContactModification()
+        public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null; // Чистим кеш
             return this;
         }
 
@@ -75,11 +77,37 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null; // Чистим кеш
             return this;
         }
 
+        private List<ContactData> contactCache = null; // Тут хранится сохраненный список (кеш списка) (для ускорения тестов)
+
         public List<ContactData> GetContactList()
         {
+            if (contactCache == null) // При первом обращении сохраняем список в кеш
+            {
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+
+                // Находим все строки групп
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
+                
+                foreach (IWebElement element in elements)
+                {
+                    // Находим все колонки в строке
+                    IList<IWebElement> column = element.FindElements(By.TagName("td"));
+
+                    // Извлекаем фамилию (2я колонка) и имя (3я колонка)
+                    string lastname = column[1].Text;
+                    string firstname = column[2].Text;
+
+                    contactCache.Add(new ContactData(firstname, lastname));
+                }
+            }
+            return new List<ContactData>(contactCache); // Возвращаем копию
+
+            /*
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
             
@@ -98,6 +126,7 @@ namespace WebAddressbookTests
                 contacts.Add(new ContactData(firstname, lastname));
             }
             return contacts;
+            */
         }
     }
 }
