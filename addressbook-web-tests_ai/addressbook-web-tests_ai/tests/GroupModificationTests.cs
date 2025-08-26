@@ -24,6 +24,8 @@ namespace WebAddressbookTests
 
             app.Groups.Modify(0, newData);
 
+            ClassicAssert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); // Проверяем колчичество групп
+
             List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();

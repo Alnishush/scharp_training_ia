@@ -20,6 +20,8 @@ namespace WebAddressbookTests
 
             app.Groups.Remove(0);
 
+            ClassicAssert.AreEqual(oldGroups.Count-+ 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
+
             List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
             oldGroups.RemoveAt(0); //Удаленный элемент из списка до
             oldGroups.Sort();

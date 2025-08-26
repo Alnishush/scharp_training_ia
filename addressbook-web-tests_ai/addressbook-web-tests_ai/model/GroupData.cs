@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             return Name == other.Name;
         }
 
-        public override int GetHashCode()
+        public override int GetHashCode() // Сравнение элементов через хеш
         {
             return Name.GetHashCode();
         }

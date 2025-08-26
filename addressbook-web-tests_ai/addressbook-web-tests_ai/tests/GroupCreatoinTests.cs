@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAddressbookTests
 {
@@ -17,6 +18,8 @@ namespace WebAddressbookTests
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //получаем список групп до
             
             app.Groups.Create(group); // Для public GroupHelper CreateGroup(GroupData group) из GroupHelper
+
+            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
 
             List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
             oldGroups.Add(group);
@@ -36,6 +39,8 @@ namespace WebAddressbookTests
 
             app.Groups.Create(group);
 
+            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
             oldGroups.Sort();
@@ -53,6 +58,8 @@ namespace WebAddressbookTests
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
+
+            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
