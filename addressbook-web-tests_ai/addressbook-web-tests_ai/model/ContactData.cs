@@ -35,7 +35,14 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Firstname) & Lastname.CompareTo(other.Lastname);
+            // Сначала сравниваем по фамилии
+            int LastnameCompare = Lastname.CompareTo(other.Lastname);
+            if (LastnameCompare != 0)
+            {
+                return LastnameCompare;
+            }
+            // Если фамилии одинаковые, сравниваем по имени
+            return Firstname.CompareTo(other.Firstname);
         }
 
         public ContactData(string firstname)
