@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        private string allPhones;
+        private string allEmail;
+
         public bool Equals(ContactData other) //Реализует сравнения
         {
             if (Object.ReferenceEquals(other, null)) //Если тот объект с которым сравниваем это null
@@ -15,12 +19,14 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Firstname == other.Firstname && Lastname == other.Lastname;
+            return Firstname == other.Firstname
+                && Lastname == other.Lastname;
         }
 
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode() & Lastname.GetHashCode();
+            return Firstname.GetHashCode()
+                & Lastname.GetHashCode();
         }
 
         public override string ToString()
@@ -39,7 +45,7 @@ namespace WebAddressbookTests
             int LastnameCompare = Lastname.CompareTo(other.Lastname);
             if (LastnameCompare != 0)
             {
-                return LastnameCompare;
+                return Lastname.CompareTo(other.Lastname);
             }
             // Если фамилии одинаковые, сравниваем по имени
             return Firstname.CompareTo(other.Firstname);
@@ -58,5 +64,71 @@ namespace WebAddressbookTests
 
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        public string Address { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string Email { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
+
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUpPhone(HomePhone) + CleanUpPhone(MobilePhone) + CleanUpPhone(WorkPhone)).Trim(); //Метод Trim() в C# используется для удаления пробельных символов с начала и конца строки
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        public string AllEmail
+        {
+            get
+            {
+                if (allEmail != null)
+                {
+                    return allEmail;
+                }
+                else
+                {
+                    return (CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim(); //Метод Trim() в C# используется для удаления пробельных символов с начала и конца строки
+                }
+            }
+            set
+            {
+                allEmail = value;
+            }
+        }
+
+        //Чистим от ненужных символов:
+        private string CleanUpPhone(string phone)
+        {
+            if (phone == null || phone == "") //если какой-то телефон отсутствует, то не уподет
+            {
+                return "";
+            }
+            //return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            //или так:
+            return Regex.Replace(phone, "[ \\-()]", "") + "\r\n"; //регулярное выражение
+        }
+
+        private string CleanUpEmail(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            return email + "\r\n";
+        }
     }
 }

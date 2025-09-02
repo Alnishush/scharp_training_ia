@@ -21,7 +21,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void LoginWithinvalidCredentials()
+        public void LoginWithInvalidCredentials()
         {
             // Подготовка
             app.Auth.Logout();
