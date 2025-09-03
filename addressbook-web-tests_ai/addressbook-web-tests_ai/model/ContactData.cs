@@ -8,6 +8,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmail;
+        private string allNames;
 
         public bool Equals(ContactData other) //Реализует сравнения
         {
@@ -101,7 +102,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim(); //Метод Trim() в C# используется для удаления пробельных символов с начала и конца строки
+                    return (CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3)).Trim();
                 }
             }
             set
@@ -109,6 +110,27 @@ namespace WebAddressbookTests
                 allEmail = value;
             }
         }
+
+        public string AllNames
+        {
+            get
+            {
+                if (allNames != null)
+                {
+                    return allNames;
+                }
+                else
+                {
+                    return (Firstname + Lastname);
+                }
+            }
+            set
+            {
+                allNames = value;
+            }
+        }
+
+        public string FirstAndLastNames { get; set; }
 
         //Чистим от ненужных символов:
         private string CleanUpPhone(string phone)

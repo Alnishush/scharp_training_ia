@@ -172,5 +172,22 @@ namespace WebAddressbookTests
             Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
         }
+
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+
+            string firstAndLastNames = driver.FindElement(By.Id("content"))
+                   .FindElement(By.TagName("b"))
+                   .Text;
+
+            return new ContactData(firstAndLastNames)
+            {
+                FirstAndLastNames = firstAndLastNames,
+            };
+        }
     }
 }
