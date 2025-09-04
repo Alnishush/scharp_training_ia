@@ -91,7 +91,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return CleanUpName(FirstName) + CleanUpName(LastName);
+                    return (FirstName + " " + LastName).Trim();
                 }
             }
             set
@@ -103,7 +103,7 @@ namespace WebAddressbookTests
         private string CleanUpName(string name)
         {
             if (name == null || name == "")
-            {
+            {   
                 return "";
             }
             return name;
