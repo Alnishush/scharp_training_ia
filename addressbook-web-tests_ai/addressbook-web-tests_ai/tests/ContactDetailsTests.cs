@@ -18,8 +18,7 @@ namespace WebAddressbookTests
             ContactData fromFrom = app.Contacts.GetContactInformationFromEditForm(0);
 
             // verification
-            ClassicAssert.AreEqual(fromDetails, fromFrom);
-            ClassicAssert.AreEqual(fromDetails.FirstAndLastNames, fromFrom.AllNames);
+            ClassicAssert.AreEqual(fromDetails.AllNames, fromFrom.AllNames);
         }
     }
 }

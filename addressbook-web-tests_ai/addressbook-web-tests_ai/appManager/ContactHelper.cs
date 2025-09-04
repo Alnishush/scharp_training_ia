@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.BrowsingContext;
+using System;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -39,8 +40,8 @@ namespace WebAddressbookTests
 
         public ContactHelper FillAddressForm(ContactData address)
         {
-            Type(By.Name("firstname"), address.Firstname);
-            Type(By.Name("lastname"), address.Lastname);
+            Type(By.Name("firstname"), address.FirstName);
+            Type(By.Name("lastname"), address.LastName);
             return this;
         }
 
@@ -176,18 +177,27 @@ namespace WebAddressbookTests
         public ContactData GetContactInformationFromDetails(int index)
         {
             manager.Navigator.GoToHomePage();
-            driver.FindElements(By.Name("entry"))[index]
-                .FindElements(By.TagName("td"))[6]
-                .FindElement(By.TagName("a")).Click();
+            InitDetails(0);
 
-            string firstAndLastNames = driver.FindElement(By.Id("content"))
+            string allNames = driver.FindElement(By.Id("content"))
                    .FindElement(By.TagName("b"))
                    .Text;
 
-            return new ContactData(firstAndLastNames)
+            //string firstName = allNames - lastName;
+            //string lastName = allNames - firstName;
+
+
+            return new ContactData()
             {
-                FirstAndLastNames = firstAndLastNames,
+                AllNames = allNames
             };
+        }
+
+        public void InitDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
         }
     }
 }

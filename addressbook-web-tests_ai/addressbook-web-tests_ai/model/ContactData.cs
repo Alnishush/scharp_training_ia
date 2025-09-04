@@ -20,19 +20,19 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return Firstname == other.Firstname
-                && Lastname == other.Lastname;
+            return FirstName == other.FirstName
+                && LastName == other.LastName;
         }
 
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode()
-                & Lastname.GetHashCode();
+            return FirstName.GetHashCode()
+                & LastName.GetHashCode();
         }
 
         public override string ToString()
         {
-            return "firstname=" + Firstname + ", lastname=" + Lastname;
+            return "firstname=" + FirstName + ", lastname=" + LastName;
 
         }
 
@@ -43,28 +43,37 @@ namespace WebAddressbookTests
                 return 1;
             }
             // Сначала сравниваем по фамилии
-            int LastnameCompare = Lastname.CompareTo(other.Lastname);
+            int LastnameCompare = LastName.CompareTo(other.LastName);
             if (LastnameCompare != 0)
             {
-                return Lastname.CompareTo(other.Lastname);
+                return LastName.CompareTo(other.LastName);
             }
             // Если фамилии одинаковые, сравниваем по имени
-            return Firstname.CompareTo(other.Firstname);
+            return FirstName.CompareTo(other.FirstName);
         }
 
         public ContactData(string firstname)
         {
-            Firstname = firstname;
+            FirstName = firstname;
         }
 
         public ContactData(string firstname, string lastname)
         {
-            Firstname = firstname;
-            Lastname = lastname;
+            FirstName = firstname;
+            LastName = lastname;
         }
 
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
+        public ContactData()
+        {
+        }
+
+        /*public ContactData(string allNames)
+        {
+            AllNames = allNames;
+        }*/
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Address { get; set; }
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
@@ -72,6 +81,33 @@ namespace WebAddressbookTests
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+        public string AllNames
+        {
+            get
+            {
+                if (allNames != null)
+                {
+                    return allNames;
+                }
+                else
+                {
+                    return CleanUpName(FirstName) + CleanUpName(LastName);
+                }
+            }
+            set
+            {
+                allNames = value;
+            }
+        }
+
+        private string CleanUpName(string name)
+        {
+            if (name == null || name == "")
+            {
+                return "";
+            }
+            return name;
+        }
 
         public string AllPhones
         {
@@ -110,27 +146,6 @@ namespace WebAddressbookTests
                 allEmail = value;
             }
         }
-
-        public string AllNames
-        {
-            get
-            {
-                if (allNames != null)
-                {
-                    return allNames;
-                }
-                else
-                {
-                    return (Firstname + Lastname);
-                }
-            }
-            set
-            {
-                allNames = value;
-            }
-        }
-
-        public string FirstAndLastNames { get; set; }
 
         //Чистим от ненужных символов:
         private string CleanUpPhone(string phone)
