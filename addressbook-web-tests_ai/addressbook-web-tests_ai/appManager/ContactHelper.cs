@@ -137,7 +137,7 @@ namespace WebAddressbookTests
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
-            EditContact(0);
+            EditContact(index);
             
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
@@ -177,19 +177,18 @@ namespace WebAddressbookTests
         public ContactData GetContactInformationFromDetails(int index)
         {
             manager.Navigator.GoToHomePage();
-            InitDetails(0);
+            InitDetails(index);
 
             string allNames = driver.FindElement(By.Id("content"))
                    .FindElement(By.TagName("b"))
                    .Text;
 
-            //string firstName = allNames - lastName;
-            //string lastName = allNames - firstName;
-
+            string textInDetails = driver.FindElement(By.Id("content")).Text;
 
             return new ContactData()
             {
-                AllNames = allNames
+                AllNames = allNames,
+                TextInDetails = textInDetails
             };
         }
 
@@ -198,6 +197,12 @@ namespace WebAddressbookTests
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[6]
                 .FindElement(By.TagName("a")).Click();
+        }
+
+        //НЕ ДЛЯ ЗАДАНИЙ!!!
+        internal string Test1()
+        {
+            return driver.FindElement(By.Id("content")).Text;
         }
     }
 }

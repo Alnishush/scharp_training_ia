@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebAddressbookTests
 {
@@ -9,6 +10,7 @@ namespace WebAddressbookTests
         private string allPhones;
         private string allEmail;
         private string allNames;
+        private string textInDetails;
 
         public bool Equals(ContactData other) //Реализует сравнения
         {
@@ -100,14 +102,14 @@ namespace WebAddressbookTests
             }
         }
 
-        private string CleanUpName(string name)
+        /*private string CleanUpName(string name)
         {
             if (name == null || name == "")
             {   
                 return "";
             }
             return name;
-        }
+        }*/
 
         public string AllPhones
         {
@@ -145,6 +147,90 @@ namespace WebAddressbookTests
             {
                 allEmail = value;
             }
+        }
+
+        public string TextInDetails
+        {
+            get
+            {
+                if (textInDetails != null)
+                {
+                    return textInDetails;
+                }
+                else
+                {
+                    return (
+                        (CleanUpNameInDetails(FirstName) + " " + CleanUpNameInDetails(LastName)).Trim() + "\r\n"
+                        + CleanUpAddressInDetails(Address)
+                        + CleanUpHomePhoneInDetails(HomePhone)
+                        + CleanUpMobilePhoneInDetails(MobilePhone)
+                        + CleanUpWorkPhoneInDetails(WorkPhone)
+                        + "\r\n"
+                        + CleanUpTextInDetails(Email)
+                        + CleanUpTextInDetails(Email2)
+                        + CleanUpTextInDetails(Email3))
+                        .Trim()
+                        ;
+                }
+            }
+            set
+            {
+                textInDetails = value;
+            }
+        }
+
+        private string CleanUpAddressInDetails(string address)
+        {
+            if (address == null || address == "")
+            {
+                return "\r\n";
+            }
+            return address + "\r\n\r\n";
+        }
+
+        private string CleanUpNameInDetails(string name)
+        {
+            if (name == null || name == "")
+            {
+                return "";
+            }
+            return name;
+        }
+
+        private string CleanUpTextInDetails(string text)
+        {
+            if (text == null || text == "")
+            {
+                return "";
+            }
+            return text + "\r\n";
+        }
+
+        private string CleanUpWorkPhoneInDetails(string workPhone)
+        {
+            if (workPhone == null || workPhone == "")
+            {
+                return "";
+            }
+            return "W: " + workPhone + "\r\n";
+        }
+
+        private string CleanUpMobilePhoneInDetails(string mobilePhone)
+        {
+            if (mobilePhone == null || mobilePhone == "")
+            {
+                return "";
+            }
+            return "M: " + mobilePhone + "\r\n";
+        }
+
+        private string CleanUpHomePhoneInDetails(string homePhone)
+        {
+            if (homePhone == null || homePhone == "")
+            {
+                return "";
+            }
+            return "H: " + homePhone + "\r\n";
         }
 
         //Чистим от ненужных символов:
