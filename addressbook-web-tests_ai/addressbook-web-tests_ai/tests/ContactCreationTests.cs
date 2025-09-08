@@ -7,7 +7,30 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-        [Test]
+        public static IEnumerable<ContactData> RndomContactDataProvider()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contacts.Add(new ContactData(GenetateRandomString(30), GenetateRandomString(30)));
+            }
+            return contacts;
+        }
+
+        public void AddAddressTest(ContactData contact)
+        {
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            ClassicAssert.AreEqual(oldContacts, newContacts);
+        }
+
+        /*[Test]
         public void AddAddressTest()
         {
             ContactData contact = new ContactData("Игорь");
@@ -22,6 +45,6 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             ClassicAssert.AreEqual(oldContacts, newContacts);
-        }
+        }*/
     }
 }

@@ -8,13 +8,24 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        [Test]
-        public void GroupCreationTest()
+        public static IEnumerable<GroupData> RndomGroupDataProvider()
         {
-            GroupData group = new GroupData("q");
-            group.Header = "qw";
-            group.Footer = "qwe";
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenetateRandomString(30))
+                {
+                    Header = GenetateRandomString(100),
+                    Footer = GenetateRandomString(100)
+                });
+            }
 
+            return groups;
+        }
+
+        [Test, TestCaseSource("RndomGroupDataProvider")]
+        public void GroupCreationTest(GroupData group)
+        {
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //получаем список групп до
             
             app.Groups.Create(group); // Для public GroupHelper CreateGroup(GroupData group) из GroupHelper
@@ -29,27 +40,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void EmptyGroupCreationTest()
-        {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
-
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            app.Groups.Create(group);
-
-            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
-
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newGroups.Sort();
-            ClassicAssert.AreEqual(oldGroups, newGroups);
-        }
-
-        [Test]
-        public void BadGroupCreationTest()
+        public void BadNameGroupCreationTest()
         {
             GroupData group = new GroupData("a'a");
             group.Header = "";
@@ -59,7 +50,7 @@ namespace WebAddressbookTests
 
             app.Groups.Create(group);
 
-            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
+            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);

@@ -34,7 +34,8 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "firstname=" + FirstName + ", lastname=" + LastName;
+            return "firstname=" + FirstName
+                + "\nlastname=" + LastName;
 
         }
 
@@ -162,21 +163,54 @@ namespace WebAddressbookTests
                     return (
                         (CleanUpNameInDetails(FirstName) + " " + CleanUpNameInDetails(LastName)).Trim() + "\r\n"
                         + CleanUpAddressInDetails(Address)
-                        + CleanUpHomePhoneInDetails(HomePhone)
-                        + CleanUpMobilePhoneInDetails(MobilePhone)
-                        + CleanUpWorkPhoneInDetails(WorkPhone)
-                        + "\r\n"
+                        //+ CleanUpHomePhoneInDetails(HomePhone)
+                        //+ CleanUpMobilePhoneInDetails(MobilePhone)
+                        //+ CleanUpWorkPhoneInDetails(WorkPhone)
+                        //+ "\r\n"
+                        + CleanUpPhoneInDetails(HomePhone, MobilePhone, WorkPhone)
                         + CleanUpTextInDetails(Email)
                         + CleanUpTextInDetails(Email2)
                         + CleanUpTextInDetails(Email3))
-                        .Trim()
-                        ;
+                        .Trim();
                 }
             }
             set
             {
                 textInDetails = value;
             }
+        }
+
+        private string CleanUpPhoneInDetails(string homePhone, string mobilePhone, string workPhone)
+        {
+            // Создаем список для хранения непустых телефонов
+            var phones = new List<string>();
+
+            // Проверяем и добавляем домашний телефон
+            if (!string.IsNullOrEmpty(homePhone))
+            {
+                phones.Add("H: " + homePhone);
+            }
+
+            // Проверяем и добавляем мобильный телефон
+            if (!string.IsNullOrEmpty(mobilePhone))
+            {
+                phones.Add("M: " + mobilePhone);
+            }
+
+            // Проверяем и добавляем рабочий телефон
+            if (!string.IsNullOrEmpty(workPhone))
+            {
+                phones.Add("W: " + workPhone);
+            }
+
+            // Если есть телефоны, возвращаем их с переносами строк
+            if (phones.Count > 0)
+            {
+                return string.Join("\r\n", phones) + "\r\n\r\n";
+            }
+
+            // Если телефонов нет, возвращаем пустую строку
+            return string.Empty;
         }
 
         private string CleanUpAddressInDetails(string address)
@@ -206,7 +240,7 @@ namespace WebAddressbookTests
             return text + "\r\n";
         }
 
-        private string CleanUpWorkPhoneInDetails(string workPhone)
+        /*private string CleanUpWorkPhoneInDetails(string workPhone)
         {
             if (workPhone == null || workPhone == "")
             {
@@ -231,7 +265,7 @@ namespace WebAddressbookTests
                 return "";
             }
             return "H: " + homePhone + "\r\n";
-        }
+        }*/
 
         //Чистим от ненужных символов:
         private string CleanUpPhone(string phone)
