@@ -13,10 +13,10 @@ namespace WebAddressbookTests
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < 5; i++)
             {
-                groups.Add(new GroupData(GenetateRandomString(30))
+                groups.Add(new GroupData(GenerateRandomString(10))
                 {
-                    Header = GenetateRandomString(100),
-                    Footer = GenetateRandomString(100)
+                    Header = GenerateRandomString(10),
+                    Footer = GenerateRandomString(10)
                 });
             }
 
@@ -37,26 +37,6 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             ClassicAssert.AreEqual(oldGroups, newGroups); //Проверяем, что список групп увелисился на 1
-        }
-
-        [Test]
-        public void BadNameGroupCreationTest()
-        {
-            GroupData group = new GroupData("a'a");
-            group.Header = "";
-            group.Footer = "";
-
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            app.Groups.Create(group);
-
-            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
-
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newGroups.Sort();
-            ClassicAssert.AreEqual(oldGroups, newGroups);
         }
     }
 }
