@@ -4,6 +4,10 @@ namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Для сравнения
     {
+        public GroupData()
+        {
+        }
+
         public bool Equals(GroupData other) //Реализует сравнения
         {
             if (Object.ReferenceEquals(other, null)) //Если тот объект с которым сравниваем это null
