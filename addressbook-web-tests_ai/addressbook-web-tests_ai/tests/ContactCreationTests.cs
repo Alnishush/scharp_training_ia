@@ -31,8 +31,7 @@ namespace WebAddressbookTests
                 string[] parts = l.Split(',');
                 contacts.Add(new ContactData(parts[0])
                 {
-                    LastName = parts[1],
-                    FirstName = parts[2]
+                    LastName = parts[1]
                 });
             }
             return contacts;
@@ -52,7 +51,7 @@ namespace WebAddressbookTests
         }
 
 
-        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        [Test, TestCaseSource("ContactDataFromCsvFile")]
         public void AddAddressTest(ContactData contact)
         {
             List<ContactData> oldContacts = app.Contacts.GetContactList();

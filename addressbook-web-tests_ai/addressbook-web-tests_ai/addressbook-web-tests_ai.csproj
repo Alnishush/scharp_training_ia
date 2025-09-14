@@ -23,6 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="contacts.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="contacts.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="contacts.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="groups.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
