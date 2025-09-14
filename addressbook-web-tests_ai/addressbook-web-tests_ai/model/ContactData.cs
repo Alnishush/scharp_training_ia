@@ -55,6 +55,8 @@ namespace WebAddressbookTests
             return FirstName.CompareTo(other.FirstName);
         }
 
+        public ContactData() { }
+
         public ContactData(string firstname)
         {
             FirstName = firstname;
@@ -64,10 +66,6 @@ namespace WebAddressbookTests
         {
             FirstName = firstname;
             LastName = lastname;
-        }
-
-        public ContactData()
-        {
         }
 
         /*public ContactData(string allNames)

@@ -4,9 +4,7 @@ namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Для сравнения
     {
-        public GroupData()
-        {
-        }
+        public GroupData() { }
 
         public bool Equals(GroupData other) //Реализует сравнения
         {
