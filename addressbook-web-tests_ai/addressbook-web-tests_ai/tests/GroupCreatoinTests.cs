@@ -81,7 +81,7 @@ namespace WebAddressbookTests
             System.Console.Out.WriteLine(end.Subtract(start));
 
             start = DateTime.Now;
-            AddressBookDB = new AddressBookDB();
+            AddressBookDB db = new AddressBookDB();
             List<GroupData> fromDb = (from g in db.Groups select g).ToList();
             db.Close();
             end = DateTime.Now;
