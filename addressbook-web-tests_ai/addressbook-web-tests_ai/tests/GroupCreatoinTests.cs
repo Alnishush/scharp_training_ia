@@ -71,5 +71,21 @@ namespace WebAddressbookTests
             newGroups.Sort();
             ClassicAssert.AreEqual(oldGroups, newGroups); //Проверяем, что список групп увелисился на 1
         }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            AddressBookDB = new AddressBookDB();
+            List<GroupData> fromDb = (from g in db.Groups select g).ToList();
+            db.Close();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+        }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [LinqToDB.Mapping.Table(Name = "group_list")]
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Для сравнения
     {
         public GroupData() { }
@@ -52,10 +55,16 @@ namespace WebAddressbookTests
             Footer = footer;
         }
 
-
+        [LinqToDB.Mapping.Column(Name = "group_name")]
         public string Name { get; set; }
+
+        [LinqToDB.Mapping.Column(Name = "group_header")]
         public string Header { get; set; }
+
+        [LinqToDB.Mapping.Column(Name = "group_footer")]
         public string Footer { get; set; }
+
+        [LinqToDB.Mapping.Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
     }
 }
