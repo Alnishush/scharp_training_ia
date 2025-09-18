@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [LinqToDB.Mapping.Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -68,20 +71,29 @@ namespace WebAddressbookTests
             LastName = lastname;
         }
 
-        /*public ContactData(string allNames)
-        {
-            AllNames = allNames;
-        }*/
+        [LinqToDB.Mapping.Column(Name = "id"), PrimaryKey]
+        public string Id { get; set; }
 
+        [LinqToDB.Mapping.Column(Name = "firstname")]
         public string FirstName { get; set; }
+ 
+        [LinqToDB.Mapping.Column(Name = "lastname")]
         public string LastName { get; set; }
+ 
         public string Address { get; set; }
+       
         public string HomePhone { get; set; }
+       
         public string MobilePhone { get; set; }
+        
         public string WorkPhone { get; set; }
+        
         public string Email { get; set; }
+        
         public string Email2 { get; set; }
+        
         public string Email3 { get; set; }
+        
         public string AllNames
         {
             get
@@ -100,15 +112,6 @@ namespace WebAddressbookTests
                 allNames = value;
             }
         }
-
-        /*private string CleanUpName(string name)
-        {
-            if (name == null || name == "")
-            {   
-                return "";
-            }
-            return name;
-        }*/
 
         public string AllPhones
         {
@@ -237,33 +240,6 @@ namespace WebAddressbookTests
             }
             return text + "\r\n";
         }
-
-        /*private string CleanUpWorkPhoneInDetails(string workPhone)
-        {
-            if (workPhone == null || workPhone == "")
-            {
-                return "";
-            }
-            return "W: " + workPhone + "\r\n";
-        }
-
-        private string CleanUpMobilePhoneInDetails(string mobilePhone)
-        {
-            if (mobilePhone == null || mobilePhone == "")
-            {
-                return "";
-            }
-            return "M: " + mobilePhone + "\r\n";
-        }
-
-        private string CleanUpHomePhoneInDetails(string homePhone)
-        {
-            if (homePhone == null || homePhone == "")
-            {
-                return "";
-            }
-            return "H: " + homePhone + "\r\n";
-        }*/
 
         //Чистим от ненужных символов:
         private string CleanUpPhone(string phone)
