@@ -181,6 +181,9 @@ namespace WebAddressbookTests
             }
         }
 
+        [LinqToDB.Mapping.Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
         private string CleanUpPhoneInDetails(string homePhone, string mobilePhone, string workPhone)
         {
             // Создаем список для хранения непустых телефонов
@@ -260,6 +263,14 @@ namespace WebAddressbookTests
                 return "";
             }
             return email + "\r\n";
+        }
+
+        public static List<ContactData> GetAll() //метод получения полного списка контактов
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
         }
     }
 }

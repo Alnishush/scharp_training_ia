@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.BrowsingContext;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Text.RegularExpressions;
 
@@ -199,10 +200,35 @@ namespace WebAddressbookTests
                 .FindElement(By.TagName("a")).Click();
         }
 
-        //НЕ ДЛЯ ЗАДАНИЙ!!!
-        internal string Test1()
+        public void AddContactToGroup(ContactData contact, GroupData group)
         {
-            return driver.FindElement(By.Id("content")).Text;
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContactId(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        private void SelectContactId(string contactId)
+        {
+            driver.FindElement(By.Id(contactId)).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
         }
     }
 }
