@@ -20,14 +20,14 @@ namespace WebAddressbookTests
             newData.Header = "zx";
             newData.Footer = "zxc";
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //получаем список групп до
+            List<GroupData> oldGroups = GroupData.GetAll(); //получаем список групп до
             GroupData oldData = oldGroups[0]; // Сохраняем строку по id
 
             app.Groups.Modify(0, newData);
 
             ClassicAssert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); // Проверяем колчичество групп
 
-            List<GroupData> newGroups = app.Groups.GetGroupList(); //получаем список групп после
+            List<GroupData> newGroups = GroupData.GetAll(); //получаем список групп после
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
