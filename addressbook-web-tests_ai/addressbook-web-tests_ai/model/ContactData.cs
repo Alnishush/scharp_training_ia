@@ -71,7 +71,7 @@ namespace WebAddressbookTests
             LastName = lastname;
         }
 
-        [LinqToDB.Mapping.Column(Name = "id"), PrimaryKey]
+        [LinqToDB.Mapping.Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
         [LinqToDB.Mapping.Column(Name = "firstname")]

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -19,6 +20,7 @@ namespace WebAddressbookTests
             newData.LastName = "Апдейтович";
  
             List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData oldData = oldContacts[0]; // Сохраняем строку по id
 
             app.Contacts.Modify(0, newData);
 
@@ -28,6 +30,14 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             ClassicAssert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Id == oldData.Id)
+                {
+                    ClassicAssert.AreEqual(newData.FirstName, contact.FirstName); // Изменилась именно этот строка по id
+                }
+            }
         }
     }
 }
