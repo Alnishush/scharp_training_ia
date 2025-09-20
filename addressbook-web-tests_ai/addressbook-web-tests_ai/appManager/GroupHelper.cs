@@ -48,6 +48,16 @@ namespace WebAddressbookTests
             ReternToGroupsPage();
             return this;
         }
+        public GroupHelper Modify2(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            InitEditGroupModification();
+            FillGroupForm(group);
+            SubmitGroupModificationn();
+            ReternToGroupsPage();
+            return this;
+        }
 
         public GroupHelper InitNewGroupCreation() // вместо void ставим GroupHelper и добавляем return this; что бы вызывать самого себя. Для уменьшения теста GroupCreationTests
         {

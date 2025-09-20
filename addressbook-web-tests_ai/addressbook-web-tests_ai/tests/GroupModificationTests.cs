@@ -23,14 +23,14 @@ namespace WebAddressbookTests
             List<GroupData> oldGroups = GroupData.GetAll(); //получаем список групп до
             GroupData oldData = oldGroups[0]; // Сохраняем строку по id
 
-            app.Groups.Modify(0, newData);
+            app.Groups.Modify2(oldData);
 
             ClassicAssert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); // Проверяем колчичество групп
 
             List<GroupData> newGroups = GroupData.GetAll(); //получаем список групп после
             oldGroups[0].Name = newData.Name;
-            oldGroups.Sort();
-            newGroups.Sort();
+            //oldGroups.Sort();
+            //newGroups.Sort();
             ClassicAssert.AreEqual(oldGroups, newGroups);
 
             foreach (GroupData group in newGroups)

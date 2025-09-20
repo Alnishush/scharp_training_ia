@@ -2,6 +2,7 @@
 using OpenQA.Selenium.BiDi.BrowsingContext;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -26,6 +27,21 @@ namespace WebAddressbookTests
             SelectContact(index);
             RemoveContact();
             manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove2(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(contact.Id);
+            RemoveContact();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
         }
 
@@ -230,5 +246,6 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("add")).Click();
         }
+
     }
 }
