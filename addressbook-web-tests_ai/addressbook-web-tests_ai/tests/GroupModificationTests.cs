@@ -23,7 +23,7 @@ namespace WebAddressbookTests
             List<GroupData> oldGroups = GroupData.GetAll(); //получаем список групп до
             GroupData oldData = oldGroups[0]; // Сохраняем строку по id
 
-            app.Groups.Modify2(oldData);
+            app.Groups.Modify2(oldData, newData);
 
             ClassicAssert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); // Проверяем колчичество групп
 

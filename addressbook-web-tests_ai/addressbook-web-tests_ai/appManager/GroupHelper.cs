@@ -48,12 +48,12 @@ namespace WebAddressbookTests
             ReternToGroupsPage();
             return this;
         }
-        public GroupHelper Modify2(GroupData group)
+        public GroupHelper Modify2(GroupData oldData, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(group.Id);
+            SelectGroup(oldData.Id);
             InitEditGroupModification();
-            FillGroupForm(group);
+            FillGroupForm(newData);
             SubmitGroupModificationn();
             ReternToGroupsPage();
             return this;

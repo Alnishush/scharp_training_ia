@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         public ContactHelper Create(ContactData contact) // Для app.Groups.CreateGroup(group) из GroupCreationTests
         {
             manager.Navigator.GoToAddNewPage();
-            FillAddressForm(contact);
+            FillContactForm(contact);
             SubmitAddressCreation();
             manager.Navigator.GoToHomePage();
             return this;
@@ -49,13 +49,28 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToHomePage();
             EditContact(index);
-            FillAddressForm(newData);
+            FillContactForm(newData);
             SubmitContactModification();
             manager.Navigator.GoToHomePage();
             return this;
         }
 
-        public ContactHelper FillAddressForm(ContactData address)
+        public ContactHelper Modify2(ContactData oldData, ContactData newData)
+        {
+            manager.Navigator.GoToHomePage();
+            EditContact(oldData.Id);
+            FillContactForm(newData);
+            SubmitContactModification();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+        public ContactHelper EditContact(string id)
+        {
+            driver.FindElement(By.XPath("//tr[.//input[@value='" + id + "']]//img[@title='Edit']")).Click();
+            return this;
+        }
+
+        public ContactHelper FillContactForm(ContactData address)
         {
             Type(By.Name("firstname"), address.FirstName);
             Type(By.Name("lastname"), address.LastName);
