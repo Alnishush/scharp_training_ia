@@ -4,7 +4,7 @@ using NUnit.Framework.Legacy;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -15,14 +15,14 @@ namespace WebAddressbookTests
                 app.Contacts.Create(contact);
             }
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-
             ContactData newData = new ContactData("Петр");
             newData.LastName = "Апдейтович";
+ 
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.Contacts.Modify(0, newData);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts[0].FirstName = newData.FirstName;
             oldContacts[0].LastName = newData.LastName;
             oldContacts.Sort();

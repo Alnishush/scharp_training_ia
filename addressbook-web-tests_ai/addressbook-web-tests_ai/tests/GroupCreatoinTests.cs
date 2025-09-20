@@ -61,7 +61,7 @@ namespace WebAddressbookTests
         {
             List<GroupData> oldGroups = GroupData.GetAll(); //получаем список групп до
 
-            app.Groups.Create(group); // Для public GroupHelper CreateGroup(GroupData group) из GroupHelper
+            app.Groups.Create(group);
 
             ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
 
