@@ -233,34 +233,55 @@ namespace WebAddressbookTests
 
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
-            manager.Navigator.GoToHomePage();
-            ClearGroupFilter();
-            SelectContactId(contact.Id);
-            SelectGroupToAdd(group.Name);
-            CommitAddingContactToGroup();
+            manager.Navigator.GoToHomePage();   // Переходит на главную страницу приложения (список контактов)
+            ClearGroupFilter();                 // Сбрасывает фильтр групп (показывает все контакты)
+            SelectContactId(contact.Id);        // Выбирает конкретный контакт по его ID
+            SelectGroupToAdd(group.Name);       // Выбирает группу из выпадающего списка, в которую нужно добавить контакт
+            CommitAddingContactToGroup();       // Нажимает кнопку "Add to" для подтверждения
+            // Ждет до 10 секунд появления сообщения об успешном добавлении:
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
-        public void ClearGroupFilter()
+            public void ClearGroupFilter()
+            {
+                new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+            }
+
+            private void SelectContactId(string contactId)
+            {
+                driver.FindElement(By.Id(contactId)).Click();
+            }
+
+            public void SelectGroupToAdd(string name)
+            {
+                new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+            }
+
+            public void CommitAddingContactToGroup()
+            {
+                driver.FindElement(By.Name("add")).Click();
+            }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
         {
-            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+            manager.Navigator.GoToHomePage();   // Переходит на главную страницу приложения (список контактов)
+            SelectGroupFilter(group.Name);      // Выбирает группу из выпадающего списка в фильтре
+            SelectContactId(contact.Id);        // Выбирает конкретный контакт по его ID
+            CommitRemovalContactToGroup();      // Нажимает кнопку "Remove from .." для подтверждения
+            // Ждет до 10 секунд появления сообщения об успешном добавлении:
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
-        private void SelectContactId(string contactId)
-        {
-            driver.FindElement(By.Id(contactId)).Click();
-        }
+            public void SelectGroupFilter(string name)
+                {
+                    new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+                }
 
-        public void SelectGroupToAdd(string name)
-        {
-            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
-        }
-
-        public void CommitAddingContactToGroup()
-        {
-            driver.FindElement(By.Name("add")).Click();
-        }
-
+            public void CommitRemovalContactToGroup()
+            {
+                driver.FindElement(By.Name("remove")).Click();
+            }
     }
 }

@@ -79,9 +79,13 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from c in db.Contacts
-                        from gcr in db.GCR/*.Where(p => p.ContactId == Id && p.ContactId == c.Id && c.Deprecated == "0000-00-00 00:00:00")*/
-                        select c).Distinct().ToList();
+                return (from c in db.Contacts           // выбирает все контакты из таблицы Contacts
+                        from gcr in db.GCR              // присоединяет таблицу связей "Group-Contact Relations"
+                        where gcr.GroupId == this.Id    // фильтрует связи по ID текущей группы
+                            && gcr.ContactId == c.Id    // соединяет контакты со связями по ID контакта
+                        //.Where(p => p.ContactId == Id && p.ContactId == c.Id)// && c.Deprecated == "0000-00-00 00:00:00")
+                        select c).Distinct()            // убирает дубликаты
+                        .ToList();                      // возвращает список
             }
         }
     }

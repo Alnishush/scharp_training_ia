@@ -13,18 +13,21 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
-            GroupData group = GroupData.GetAll()[0]; //Выбираем группу
-            List<ContactData> oldList = group.GetContacts(); //Запоминаем старый список контактов
-            ContactData contact = ContactData.GetAll().Except(oldList).First(); //Убираем контакты из заданной группы и берем первый. Этот контакт будем добавлять в группу
+            GroupData group = GroupData.GetAll()[0];            // Берет первую группу из базы данных
+            List<ContactData> oldList = group.GetContacts();    // Получает список контактов, которые уже находятся в этой группе
+            // Находит контакт, которого еще нет в группе:
+            ContactData contact = ContactData.GetAll()          // все контакты из базы данных
+                .Except(oldList)                                // исключает контакты, которые уже есть в группе
+                .First();                                       // берет первый контакт из оставшихся
 
-            app.Contacts.AddContactToGroup(contact, group);
+            app.Contacts.AddContactToGroup(contact, group);     // Выполняет само добавление через пользовательский интерфейс
 
-            List<ContactData> newList = group.GetContacts(); //Получаем новый список контактов
-            oldList.Add(contact); //В старый список добавляем контакт
-            newList.Sort(); //Сортируем
-            oldList.Sort(); //Сортируем
-
-            ClassicAssert.AreEqual(oldList, newList); //Сравниваем
+            // Сравнивает ожидаемый и фактический списки контактов:
+            List<ContactData> newList = group.GetContacts();    //Получаем новый список контактов
+            oldList.Add(contact);                               //В старый список добавляем контакт
+            newList.Sort();                                     //Сортируем
+            oldList.Sort();                                     //Сортируем
+            ClassicAssert.AreEqual(oldList, newList);           //Сравниваем
         }
     }
 }
